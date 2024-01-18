@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import "./App.css";
+
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import CountryList from "./components/CountryList";
+import Demonyms from "./components/Demonyms";
+import Languages from "./components/Languages";
+import Currencies from "./components/Currencies";
+
+const App = () => {
+  const [countries, setCountries] = useState({});
+  const [country, setCountry] = useState("South Korea");
+  // const countries = ["USA", "South Korea", "Germany"];
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch(`https://restcountries.com/v3.1/all`);
+        const data = await response.json();
+        const sortedData = data.sort((a, b) =>
+          a.name.common.localeCompare(b.name.common)
+        );
+
+        setCountries(sortedData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getData();
+  }, []);
+
+  // const handleChange = (e) => {
+  //   const newCountry = e.target.value;
+  //   setCountry(newCountry);
+  // };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <div className="navbar">
+        <Navbar />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/countrylist" element={<CountryList />} />
+        <Route path="/demonyms" element={<Demonyms />} />
+        <Route path="/languages" element={<Languages />} />
+        <Route path="/currencies" element={<Currencies />} />
+      </Routes>
+    </div>
+  );
+};
 
-export default App
+export default App;
