@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import "./App.css";
+// import "./App.css";
+import "./index.css";
 
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -31,11 +32,6 @@ const App = () => {
     };
     getData();
   }, []);
-
-  // const handleChange = (e) => {
-  //   const newCountry = e.target.value;
-  //   setCountry(newCountry);
-  // };
 
   return (
     <div>

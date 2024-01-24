@@ -66,3 +66,22 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar .left,
+.navbar .right {
+  display: flex;
+}
+
+.navbar .right {
+  justify-content: flex-end;
+  margin-right: 30px;
+}
+
+.navbar .right a:not(:last-child) {
+  margin-right: 30px;
+}
