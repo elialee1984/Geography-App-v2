@@ -31,6 +31,8 @@ const App = () => {
       }
     };
     getData();
+
+    console.log(countries);
   }, []);
 
   return (
@@ -38,13 +40,18 @@ const App = () => {
       <div className="navbar">
         <Navbar />
       </div>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/countrylist" element={<CountryList />} />
-        <Route path="/demonyms" element={<Demonyms />} />
-        <Route path="/languages" element={<Languages />} />
-        <Route path="/currencies" element={<Currencies />} />
-      </Routes>
+      <div className="main main-content">
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route
+            path="/countrylist"
+            element={<CountryList countries={countries} />}
+          />
+          <Route path="/demonyms" element={<Demonyms />} />
+          <Route path="/languages" element={<Languages />} />
+          <Route path="/currencies" element={<Currencies />} />
+        </Routes>
+      </div>
     </div>
   );
 };
