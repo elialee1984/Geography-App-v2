@@ -12,8 +12,9 @@ import Currencies from "./components/Currencies";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState("South Korea");
   const [searchTerm, setSearchTerm] = useState("");
+  const [showDependent, setShowDependent] = useState(true);
+  const [showIndependent, setShowIndependent] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -37,7 +38,14 @@ const App = () => {
   return (
     <div>
       <div className="navbar">
-        <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Navbar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          showDependent={showDependent}
+          setShowDependent={setShowDependent}
+          showIndependent={showIndependent}
+          setShowIndependent={setShowIndependent}
+        />
       </div>
       <div className="main main-content">
         <Routes>

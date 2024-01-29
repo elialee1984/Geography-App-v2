@@ -1,8 +1,13 @@
 import React from "react";
 
-
-
-const CountryList = ({ countries, searchTerm }) => {
+const CountryList = ({
+  countries,
+  searchTerm,
+  showDependent,
+  setShowDependent,
+  showIndependent,
+  setShowIndependent,
+}) => {
   return (
     <div>
       {countries
@@ -15,6 +20,12 @@ const CountryList = ({ countries, searchTerm }) => {
               .toLowerCase()
               .includes(searchTerm.toLowerCase())
         )
+        // .filter((country) => {
+        //   return (
+        //     (showIndependent && country.independent) ||
+        //     (showDependent && !country.independent)
+        //   );
+        // })
         .map((country) => (
           <div key={country.name.common}>
             <li style={{ listStyle: "none" }}>

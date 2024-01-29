@@ -1,13 +1,14 @@
 import React from "react";
 import "../App.css";
 
-const Demonyms = ({ countries, searchTerm }) => {
+const Demonyms = ({ countries, searchTerm, isIndependent, setIsIndependent }) => {
   return (
     <div>
       {countries
         .filter(
           (country) =>
-            country.name.common
+          (!isIndependent || country.independent) &&
+          country.name.common
               .toLowerCase()
               .includes(searchTerm.toLowerCase()) ||
             country.name.official

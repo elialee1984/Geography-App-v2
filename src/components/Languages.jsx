@@ -4,14 +4,15 @@ const normalizeString = (str) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 };
 
-const Languages = ({ countries, searchTerm }) => {
+const Languages = ({ countries, searchTerm, isIndependent, setIsIndependent }) => {
   const normalizedSearchTerm = normalizeString(searchTerm);
   return (
     <div>
       {countries
         .filter(
           (country) =>
-            normalizeString(country.name.common).includes(normalizedSearchTerm) ||
+          (!isIndependent || country.independent) &&
+          normalizeString(country.name.common).includes(normalizedSearchTerm) ||
             normalizeString(country.name.official).includes(normalizedSearchTerm) ||
             (country.languages &&
               Object.values(country.languages)
