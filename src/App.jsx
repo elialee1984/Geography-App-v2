@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
-// import "./App.css";
 import "./index.css";
 
 import Navbar from "./components/Navbar";
@@ -12,9 +11,9 @@ import Languages from "./components/Languages";
 import Currencies from "./components/Currencies";
 
 const App = () => {
-  const [countries, setCountries] = useState({});
+  const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("South Korea");
-  // const countries = ["USA", "South Korea", "Germany"];
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -32,24 +31,39 @@ const App = () => {
     };
     getData();
 
-    console.log(countries);
+    // console.log(countries);
   }, []);
 
   return (
     <div>
       <div className="navbar">
-        <Navbar />
+        <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
       <div className="main main-content">
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route
             path="/countrylist"
-            element={<CountryList countries={countries} />}
+            element={
+              <CountryList countries={countries} searchTerm={searchTerm} />
+            }
           />
-          <Route path="/demonyms" element={<Demonyms />} />
-          <Route path="/languages" element={<Languages />} />
-          <Route path="/currencies" element={<Currencies />} />
+          <Route
+            path="/demonyms"
+            element={<Demonyms countries={countries} searchTerm={searchTerm} />}
+          />
+          <Route
+            path="/languages"
+            element={
+              <Languages countries={countries} searchTerm={searchTerm} />
+            }
+          />
+          <Route
+            path="/currencies"
+            element={
+              <Currencies countries={countries} searchTerm={searchTerm} />
+            }
+          />
         </Routes>
       </div>
     </div>
